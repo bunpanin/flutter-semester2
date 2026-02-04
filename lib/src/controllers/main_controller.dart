@@ -13,4 +13,12 @@ class MainController extends GetxController{
   void minusNumber(){
     number.value -=1;
   }
+
+  // Simple State
+  int myNum = 0;
+  void countNumberSimpleState(){
+    myNum +=1;
+    update();
+    print("Work Here");
+  }
 }

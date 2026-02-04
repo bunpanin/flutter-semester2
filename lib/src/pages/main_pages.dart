@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../controllers/main_controller.dart';
 
 class MainPages extends StatelessWidget {
-  // final controller = Get.put(MainController());
+  final controller = Get.put(MainController());
   MainPages({super.key});
-  var controller = Get.put(MainController());
+  // var controller = Get.put(MainController());
 
   
 
@@ -17,22 +17,32 @@ class MainPages extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(()=>
-              Text("Count Number : ${controller.number}"),
-            ),
+            // Obx(()=>
+            //   Text("Count Number : ${controller.number}"),
+            // ),
+            GetBuilder(
+            init: MainController(),
+            builder: (controller) {
+              return Text(
+                "Count: ${controller.myNum}",
+              );
+            },
+          ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: (){
               HapticFeedback.lightImpact();
-              controller.addNumber();
-            }, child: Text("Click here to Add number",
-            )),
+              // controller.addNumber();
+              controller.countNumberSimpleState();
+              }, child: Text("Click here to Add number")
+            ),
             ElevatedButton(
               onPressed: (){
               HapticFeedback.lightImpact();
               controller.minusNumber();
-            }, child: Text("Click here to Minus number",
-            )),
+            },
+            child: Text("Click here to Minus number")
+            ),
           ],
         ),
       )
