@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
 class MainController extends GetxController{
+
+  // Reactive State
   var number = 0.obs;
   var myString = "".obs;
   var myList = [].obs;
-
-
   void addNumber(){
     number.value += 1;
   }

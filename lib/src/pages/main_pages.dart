@@ -17,17 +17,19 @@ class MainPages extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Simple State
+            GetBuilder(
+            init: MainController(),
+              builder: (val) {
+                return Text(
+                  "Count: ${val.myNum}",
+                );
+              },
+            ),
+            // Reactive State
             // Obx(()=>
             //   Text("Count Number : ${controller.number}"),
             // ),
-            GetBuilder(
-            init: MainController(),
-            builder: (controller) {
-              return Text(
-                "Count: ${controller.myNum}",
-              );
-            },
-          ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: (){
