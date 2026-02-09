@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Login screen of the application
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -8,10 +9,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Controllers for form fields
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passwordCtrl = TextEditingController();
 
+  // Toggle password visibility
   bool obscurePassword = true;
+
+  @override
+  void dispose() {
+    // Always dispose controllers to avoid memory leaks
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF6A11CB),
-              Color(0xFF2575FC),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+        decoration: _backgroundGradient(),
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
@@ -37,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 60),
 
-                // Title
+                // Page title
                 const Text(
                   "Welcome Back",
                   style: TextStyle(
@@ -58,98 +60,16 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 40),
 
-                // Card Form
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 15,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      _inputField(
-                        controller: emailCtrl,
-                        label: "Email",
-                        icon: Icons.email,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-
-                      _inputField(
-                        controller: passwordCtrl,
-                        label: "Password",
-                        icon: Icons.lock,
-                        obscureText: obscurePassword,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              obscurePassword = !obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Forgot password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            // TODO: Forgot password
-                          },
-                          child: const Text("Forgot Password?"),
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Login Button
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // TODO: Login logic
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2575FC),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Login form card
+                _formCard(),
 
                 const SizedBox(height: 30),
 
-                // Register text
+                // Navigate to register
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      // Navigator.push to RegisterPage
+                      // TODO: Navigate to RegisterPage
                     },
                     child: const Text(
                       "Don’t have an account? Register",
@@ -165,6 +85,94 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  /// Login form UI
+  Widget _formCard() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _inputField(
+            controller: emailCtrl,
+            label: "Email",
+            icon: Icons.email,
+            keyboardType: TextInputType.emailAddress,
+          ),
+
+          _inputField(
+            controller: passwordCtrl,
+            label: "Password",
+            icon: Icons.lock,
+            obscureText: obscurePassword,
+            suffixIcon: IconButton(
+              icon: Icon(
+                obscurePassword
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+              ),
+              onPressed: () {
+                setState(() {
+                  obscurePassword = !obscurePassword;
+                });
+              },
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // Forgot password button
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                // TODO: Forgot password logic
+              },
+              child: const Text("Forgot Password?"),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // Login button
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                // TODO: Login logic
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2575FC),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                "Login",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Reusable input field widget
   Widget _inputField({
     required TextEditingController controller,
     required String label,
@@ -187,6 +195,20 @@ class _LoginPageState extends State<LoginPage> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+      ),
+    );
+  }
+
+  /// App background gradient
+  BoxDecoration _backgroundGradient() {
+    return const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color(0xFF6A11CB),
+          Color(0xFF2575FC),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
     );
   }
