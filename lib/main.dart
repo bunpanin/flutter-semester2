@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_semester2/src/pages/register_page.dart';
+import 'package:flutter_semester2/src/pages/register_page1.dart';
 import 'package:get/get.dart';
-
-import 'src/pages/login_page.dart';
 
 void main() {
   // Entry point of the Flutter application
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
 
       // First screen of the app
-      home: const RegisterPage(),
+      home: RegisterPage1(),
     );
   }
 }

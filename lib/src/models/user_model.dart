@@ -4,7 +4,7 @@ class UserModel {
   String? email;
   String? password;
   String? phone;
-  String? accessToken;
+  String? access_token;
 
   UserModel({
     this.id,
@@ -12,7 +12,7 @@ class UserModel {
     this.email,
     this.password,
     this.phone,
-    this.accessToken,
+    this.access_token,
   });
 
   // From Json
@@ -22,7 +22,7 @@ class UserModel {
     id=json['email'];
     id=json['password'];
     id=json['phone'];
-    id=json['accessToken'];
+    id=json['access_token'];
   }
 
   // To Json
@@ -32,7 +32,7 @@ class UserModel {
     'email':email,
     'password':password,
     'phone':phone,
-    'accessToken':accessToken,
+    'accessToken':access_token,
   };
 
 
